@@ -10,6 +10,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template('index.html')
+    #renders HTML Template
 
 def gen(camera): 
     while True:
@@ -20,7 +21,7 @@ def gen(camera):
 
 @app.route('/video_feed')
 def video_feed():
-    
+    #shows video feed to user
     return Response(gen(VideoCamera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 

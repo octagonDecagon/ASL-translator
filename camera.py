@@ -21,27 +21,27 @@ class VideoCamera(object):
         self.video.release()
     
     def get_frame(self):
-        success, image = self.video.read()
-
-        def predict_image(pathname):
-            img = load_image(pathname)
+        ret, image = self.video.read()
+        
+        def predict_image():
+            img = load_image()
             #img = np.expand_dims(img, axis=0)
             pred = model.predict(img[np.newaxis])
             predicted_letter = categories[np.argmax(pred)]
-            print(predicted_letter)
-        def load_image(pathname):
+            print('predicted letter is ',predicted_letter)
+        def load_image():
             #load image data into an array
-            img = cv2.imread(pathname)
-            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-            img_array = Image.fromarray(img, 'RGB')
+            img = self.video.read()
+            #img = cv2.cvtColor(np.float32(img), cv2.COLOR_BGR2RGB)
+            img = Image.fromarray(img, 'RGB')
 
             #data augmentation - resizing the image
-            resized_img = img_array.resize((200, 200))
+            resized_img = img.resize((200, 200))
     
             return np.array(resized_img) #return numpy array of image
+        
 
-
-        #predict_image('drive/MyDrive/ASL Proj: WAI/photo.jpg')
+        predict_image()
 
         # encode OpenCV raw frame to jpg and displaying it
         ret, jpeg = cv2.imencode('.jpg', image)
