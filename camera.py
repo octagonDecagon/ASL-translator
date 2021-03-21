@@ -1,9 +1,20 @@
+# SOURCE: https://medium.datadriveninvestor.com/video-streaming-using-flask-and-opencv-c464bf8473d6
+# with some edits to use ASL model
+
+import numpy as np
+from PIL import Image
+import os
+import tensorflow as tf
+from tensorflow import keras
 import cv2
-face_cascade=cv2.CascadeClassifier("haarcascade_frontalface_alt2.xml")
-ds_factor=0.6
+
+
+global model 
+model = tf.keras.models.load_model('ASL_model.h5')
 
 class VideoCamera(object):
     def __init__(self):
+        #starts video capture
         self.video = cv2.VideoCapture(0)
     
     def __del__(self):
@@ -11,11 +22,28 @@ class VideoCamera(object):
     
     def get_frame(self):
         success, image = self.video.read()
-        image=cv2.resize(image,None,fx=ds_factor,fy=ds_factor,interpolation=cv2.INTER_AREA)
-        gray=cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
-        face_rects=face_cascade.detectMultiScale(gray,1.3,5)
-        for (x,y,w,h) in face_rects:
-        	cv2.rectangle(image,(x,y),(x+w,y+h),(0,255,0),2)
-        	break
+
+        def predict_image(pathname):
+            img = load_image(pathname)
+            #img = np.expand_dims(img, axis=0)
+            pred = model.predict(img[np.newaxis])
+            predicted_letter = categories[np.argmax(pred)]
+            print(predicted_letter)
+        def load_image(pathname):
+            #load image data into an array
+            img = cv2.imread(pathname)
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+            img_array = Image.fromarray(img, 'RGB')
+
+            #data augmentation - resizing the image
+            resized_img = img_array.resize((200, 200))
+    
+            return np.array(resized_img) #return numpy array of image
+
+
+        #predict_image('drive/MyDrive/ASL Proj: WAI/photo.jpg')
+
+        # encode OpenCV raw frame to jpg and displaying it
         ret, jpeg = cv2.imencode('.jpg', image)
         return jpeg.tobytes()
+

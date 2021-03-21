@@ -2,6 +2,9 @@
 from flask import Flask, render_template, Response
 from camera import VideoCamera
 
+
+# SOURCE: https://medium.datadriveninvestor.com/video-streaming-using-flask-and-opencv-c464bf8473d6
+
 app = Flask(__name__)
 
 @app.route('/')
