@@ -8,10 +8,9 @@ from camera import VideoCamera
 app = Flask(__name__)
 
 @app.route('/')
+@app.route('/index.html')
 def index():
     return render_template('index.html')
-    #renders HTML Template
-
 def gen(camera): 
     while True:
          #get camera frame
@@ -19,11 +18,24 @@ def gen(camera):
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
+
+    #renders HTML Template
+
 @app.route('/video_feed')
 def video_feed():
     #shows video feed to user
+    
     return Response(gen(VideoCamera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/Model.html', methods=["GET", "POST"])
+def model():
+    return render_template('Model.html')
+    #renders HTML Template
+
+
+    
+    
 
 if __name__ == '__main__':
     app.run(debug=True)

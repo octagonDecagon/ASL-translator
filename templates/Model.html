@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <title> Our Model </title>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
 
 </head>
 
@@ -57,10 +57,9 @@
     </section>
     <!--- End of About Project Section -->
 
-    <!-- This is where our live camera will go -->
-
-    <section id = main_section>
-
+    <section>
+        <h1 align="center">Letter Predicted:</h1>
+        <img id="bg" class="center" src="{{ url_for('video_feed') }}",  width="128" height="128">
     </section>
 
     <!-- end of our live camera -->
@@ -81,7 +80,7 @@
   <!--- End of footer -->
 
 
-  <script src="work.js"></script>
+  <script src="../static/js/work.js"></script>
 </body>
 
 </html>
