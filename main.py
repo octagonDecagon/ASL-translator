@@ -20,6 +20,7 @@ def gen(camera):
         frame = camera.get_frame() #initializes object and uses get_frame attribute
         yield (b'--frame\r\n'
                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+        render_template('Model.html', letter)
 
 
     #renders HTML Template
@@ -32,7 +33,7 @@ def video_feed():
 
 @app.route('/Model.html', methods=["GET", "POST"])
 def model():
-    return render_template('Model.html', letter)
+    return render_template('Model.html')
     #renders HTML Template
 
     #renders HTML Template
