@@ -30,7 +30,7 @@ def video_feed():
 
 @app.route('/Model.html', methods=["GET", "POST"])
 def model():
-    return render_template('Model.html')
+    return render_template('Model.html', letter = camera.get_letter())
     #renders HTML Template
 
 
