@@ -60,7 +60,7 @@ class VideoCamera(object):
         ret, jpeg = cv2.imencode('.jpg', frame)
         return jpeg.tobytes()
         # encode OpenCV raw frame to jpg and displaying it
-        return jpeg.tobytes()
+       
     def get_letter(self):
         model = keras.models.load_model('ASL_model.h5')
         ret, frame = self.video.read()
