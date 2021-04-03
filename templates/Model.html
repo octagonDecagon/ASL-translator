@@ -58,20 +58,21 @@
     <!--- End of About Project Section -->
 
     <section>
-        <!--<img id="bg" class="center" src="{{ url_for('video_feed') }}",  width="128" height="128"> -->
+        <img id="bg" class="center" src="{{ url_for('video_feed') }}",  width="128" height="128"> 
         <h1 id = "letter_predicted" align="center"> Letter Predicted: </h1>
+        <!-- code for displaying the current value of the letter variable every second-->
         <div id = "myDiv"><h1> ? </h1></div>
         <script>
           function myFunction() {
             const element = document.getElementById("myDiv")
-            element.innerHTML = "Refreshing..."
-              fetch('/curr_letter')
+            element.innerHTML = "Refreshing..." //default value to display when fetching
+              fetch('/curr_letter') // fetching from the curr_letter app route
               .then(response => response.json())
-              .then(json => element.innerHTML = json.letter)
+              .then(json => element.innerHTML = json.letter) //this should get the letter variable
               .catch(error => console.error(error))
           }
           document.addEventListener("DOMContentLoaded", function(event) {
-            setInterval(myFunction, 1000)
+            setInterval(myFunction, 1000) // displaying the value of the letter variable every second (1000 milliseconds)
           })
         </script>
     </section>
