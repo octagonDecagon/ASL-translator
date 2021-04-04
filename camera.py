@@ -64,7 +64,7 @@ class VideoCamera(object):
        
     def get_letter(self):
         
-        model = keras.models.load_model('ASL_model.h5')
+        model = keras.models.load_model('my_model_final.h5')
         ret, frame = self.video.read()
         print('part 1')
 
