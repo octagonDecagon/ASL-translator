@@ -9,7 +9,9 @@ from flask import jsonify
 app = Flask(__name__)
 
 global letter
-letter = '?????'
+global camera
+camera=VideoCamera()
+letter = '*default*'
 
 @app.route('/')
 @app.route('/index.html')
@@ -20,8 +22,7 @@ def index():
 def model():  
     return render_template('Model.html')
     #renders HTML Template
-
-def gen(camera): 
+def gen(): 
 
     while (True):
         #get camera frame    
@@ -29,20 +30,20 @@ def gen(camera):
         yield (b'--frame\r\n'
             b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
         
-        letter=camera.get_letter()
-        #print(letter)
 
 @app.route('/video_feed')
 def video_feed():
     #shows video feed to user
-    return Response(gen(VideoCamera()),
+    return Response(gen(),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/curr_letter', methods = ['GET'])
 def curr_letter():
     #returns a json object of the letter
+    letter=camera.get_letter()
     message = {'letter': letter}
     return jsonify(message)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

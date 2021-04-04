@@ -63,23 +63,25 @@ class VideoCamera(object):
         # encode OpenCV raw frame to jpg and displaying it
        
     def get_letter(self):
+        
         model = keras.models.load_model('ASL_model.h5')
         ret, frame = self.video.read()
+        print('part 1')
 
         #resize and convert to RGB
         frame_input = cv2.resize(frame, (200, 200))
         frame_input = cv2.cvtColor(frame_input, cv2.COLOR_BGR2RGB)
-
+        print('part 2')
         #preprocess the image
         my_image = img_to_array(frame_input)
         my_image = my_image.reshape((1, my_image.shape[0], my_image.shape[1], my_image.shape[2]))
         my_image = preprocess_input(my_image)
-
+        print('part 3')
         #make the prediction
         prediction = model.predict(my_image)
         itemindex = np.where(prediction==1)
         prediction = [labels[k] for k in itemindex[1]]
-
+        print('part 4')
         #print out the predictions in real time
         #print(prediction)
         return prediction
