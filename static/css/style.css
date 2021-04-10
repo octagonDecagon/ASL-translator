@@ -357,6 +357,7 @@ p{
 /* End About Section */
 
 /* Projects Section */
+/* Projects Section */
 
 #projects .projects{
     flex-direction: column;
@@ -401,8 +402,6 @@ p{
     background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
     opacity: 0.95;
     color: blanchedalmond;
-
-
 }
 
 #projects .project-info h1{
@@ -444,6 +443,9 @@ p{
 #projects .project-items:hover .project-img img{
     transform: scale(1.1);
 }
+
+/* End of Projects */
+
 
 /* Footer */
 #footer{
