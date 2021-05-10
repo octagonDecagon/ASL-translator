@@ -67,7 +67,7 @@
         <script>
           function myFunction() {
             const element = document.getElementById("letter_predicted")
-            element.innerHTML = " " //default value to display when fetching
+            //element.innerHTML = " " //default value to display when fetching
               fetch('/curr_letter') // fetching from the curr_letter app route
               .then(response => response.json())
               .then(json => element.innerHTML = json.letter) //this should get the letter variable
